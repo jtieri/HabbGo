@@ -63,11 +63,11 @@ type ServiceChannels struct {
 
 func newServiceChannel() *ServiceChannels {
 	return &ServiceChannels{
-		AddPlayer:    make(chan query.Request[string, Player], channelBufferSize),
-		RemovePlayer: make(chan query.Request[string, Player], channelBufferSize),
-		UpdatePlayer: make(chan query.Request[string, Player], channelBufferSize),
-		HasPlayer:    make(chan query.Request[string, Player], channelBufferSize),
-		GetPlayer:    make(chan query.Request[string, Player], channelBufferSize),
+		AddPlayer:    make(chan query.Request[string, Player]),
+		RemovePlayer: make(chan query.Request[string, Player]),
+		UpdatePlayer: make(chan query.Request[string, Player]),
+		HasPlayer:    make(chan query.Request[string, Player]),
+		GetPlayer:    make(chan query.Request[string, Player]),
 	}
 }
 

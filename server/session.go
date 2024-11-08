@@ -33,6 +33,18 @@ type buffer struct {
 	buff *bufio.Writer
 }
 
+func (b *buffer) Write(p []byte) (int, error) {
+	b.mux.Lock()
+	defer b.mux.Unlock()
+	return b.buff.Write(p)
+}
+
+func (b *buffer) Flush() error {
+	b.mux.Lock()
+	defer b.mux.Unlock()
+	return b.buff.Flush()
+}
+
 // NewSession returns a pointer to a newly allocated Session struct.
 func NewSession(log *zap.Logger, conn net.Conn, server *Server) *Session {
 	return &Session{

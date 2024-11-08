@@ -188,7 +188,7 @@ func (r *Room) tileState(x, y int) TileState {
 }
 
 // floorItems returns a slice containing all the regular floor furniture Items that are in the Room.
-func (r Room) floorItems() []item.Item {
+func (r *Room) floorItems() []item.Item {
 	var items []item.Item
 
 	for _, i := range r.itemCache.Items() {
@@ -202,7 +202,7 @@ func (r Room) floorItems() []item.Item {
 }
 
 // publicRoomItems returns a slice containing all the public room furniture Items that are in the Room.
-func (r Room) publicRoomItems() []item.Item {
+func (r *Room) publicRoomItems() []item.Item {
 	var items []item.Item
 
 	for _, i := range r.itemCache.Items() {
@@ -226,12 +226,12 @@ func (r *Room) publicRoom() bool {
 }
 
 // MapSizeX returns the size of the room Map's X dimension.
-func (r Room) MapSizeX() int {
+func (r *Room) MapSizeX() int {
 	return r.mapping.sizeX
 }
 
 // MapSizeY returns the size of the room Map's Y dimension.
-func (r Room) MapSizeY() int {
+func (r *Room) MapSizeY() int {
 	return r.mapping.sizeY
 }
 

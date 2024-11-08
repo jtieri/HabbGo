@@ -52,9 +52,9 @@ func NewNavigatorService(ctx context.Context, log *zap.Logger, db *sql.DB, sched
 
 func newServiceChannels() *ServiceChannels {
 	return &ServiceChannels{
-		CategoryByIDChan:       make(chan *query.Request[int, Category], channelBufferSize),
-		CategoryByParentIDChan: make(chan *query.Request[int, []Category], channelBufferSize),
-		CategoriesChan:         make(chan *query.Request[int, []Category], channelBufferSize),
+		CategoryByIDChan:       make(chan *query.Request[int, Category]),
+		CategoryByParentIDChan: make(chan *query.Request[int, []Category]),
+		CategoriesChan:         make(chan *query.Request[int, []Category]),
 	}
 }
 

@@ -5,7 +5,7 @@ import "sync"
 // Cache is a concurrency safe generic k/v data store of items.
 type Cache[K comparable, V any] struct {
 	items map[K]V
-	mu    sync.RWMutex
+	mu    sync.Mutex
 }
 
 // NewCache returns a newly initialized Cache object mapping keys of type comparable,
@@ -13,15 +13,15 @@ type Cache[K comparable, V any] struct {
 func NewCache[K comparable, V any](m map[K]V) Cache[K, V] {
 	return Cache[K, V]{
 		items: m,
-		mu:    sync.RWMutex{},
+		mu:    sync.Mutex{},
 	}
 }
 
 // Get returns an item from the Cache if it is present along with true.
 // If the specified item is not present, a nil value is sent along with false.
 func (c *Cache[K, V]) Get(key K) (V, bool) {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	value, ok := c.items[key]
 	if ok {
@@ -59,8 +59,8 @@ func (c *Cache[K, V]) Remove(key K) {
 
 // Keys returns a slice containing the keys for the Cache's data store.
 func (c *Cache[K, V]) Keys() []K {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	keys := make([]K, len(c.items))
 
@@ -74,8 +74,8 @@ func (c *Cache[K, V]) Keys() []K {
 
 // Has returns true if there is a value with the specified key in the Cache, otherwise false is returned.
 func (c *Cache[K, V]) Has(key K) bool {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	if _, ok := c.items[key]; ok {
 		return true
@@ -92,15 +92,15 @@ func (c *Cache[K, V]) Clear() {
 
 // Count returns the number of items currently in the Cache.
 func (c *Cache[K, V]) Count() int {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	return len(c.items)
 }
 
 // Items returns a slice containing a copy of the items currently in the Cache.
 func (c *Cache[K, V]) Items() []V {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	items := make([]V, len(c.items))
 
@@ -114,8 +114,8 @@ func (c *Cache[K, V]) Items() []V {
 
 // Empty returns true if the Cache is empty or false otherwise.
 func (c *Cache[K, V]) Empty() bool {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	return len(c.items) == 0
 }
 

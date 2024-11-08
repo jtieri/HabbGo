@@ -9,7 +9,7 @@ import (
 )
 
 // Router maps incoming packet header ID's to their appropriate Command handlers.
-type  Router struct {
+type Router struct {
 	RegisteredCommands map[int]func(player.Player, packets.IncomingPacket)
 	mutex              sync.RWMutex
 }

@@ -54,8 +54,8 @@ type ServiceChannels struct {
 // newServiceChannel creates a new ServiceChannels object with all of its channels initialized.
 func newServiceChannel() *ServiceChannels {
 	return &ServiceChannels{
-		DefinitionChan: make(chan *query.Request[int, Definition], channelBufferSize),
-		PublicItemChan: make(chan *query.Request[publicRoom, []Item], channelBufferSize),
+		DefinitionChan: make(chan *query.Request[int, Definition]),
+		PublicItemChan: make(chan *query.Request[publicRoom, []Item]),
 	}
 }
 

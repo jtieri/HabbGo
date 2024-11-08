@@ -10,8 +10,15 @@ import (
 	"github.com/jtieri/habbgo/protocol/packets"
 )
 
-func NAVNODEINFO(player player.Player, parentCat navigator.Category, hideFullRooms bool, subcats []navigator.Category,
-	rooms []room.Room, currentVisitors int, maxVisitors int) packets.OutgoingPacket {
+func NAVNODEINFO(
+	player player.Player,
+	parentCat navigator.Category,
+	hideFullRooms bool,
+	subcats []navigator.Category,
+	rooms []room.Room,
+	currentVisitors int,
+	maxVisitors int,
+) packets.OutgoingPacket {
 	p := packets.NewOutgoing(220) // Base64 Header C\
 
 	p.WriteBool(hideFullRooms) // hideCategory
@@ -32,6 +39,18 @@ func NAVNODEINFO(player player.Player, parentCat navigator.Category, hideFullRoo
 		p.WriteInt(len(rooms))
 	}
 
+	/* TODO: instead of passing in all the rooms we could have passed in exactly what we needed
+	type NavNodeInfoData struct {
+		NumOfRooms int
+		RD []RoomData
+	}
+
+	type RoomData struct {
+		RoomDesc String
+		...
+		CCTs []string
+	}
+	*/
 	for _, r := range rooms {
 		if r.Details.OwnerId == 0 { // if r is public
 			desc := r.Details.Description
