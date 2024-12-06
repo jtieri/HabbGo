@@ -19,7 +19,7 @@ build/
 config.yml
 
 # Habbo Client Files
-web/client/
+legacy/web/client/
 
 # Habbo Client Src
 assets/habbo_src/

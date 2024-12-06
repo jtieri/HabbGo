@@ -1,9 +1,10 @@
 module github.com/jtieri/habbgo
 
-go 1.18
+go 1.23
 
 require (
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/google/uuid v1.6.0
 	github.com/jsternberg/zap-logfmt v1.2.0
 	github.com/lib/pq v1.10.4
 	github.com/ory/dockertest/v3 v3.7.0
